@@ -2,20 +2,20 @@ const mongoose = requrie('mongoose');
 const Schema = mongoose.Schema;
 
 const pumpSchema = new Schema({
-  profile : {
-    firstName: String,
-    lastName: String,
-    age: Number,
-    isAuthenticated: Boolean,
-  },
-  pump: {
-    model: String,
-    serialNumber: String,
-    pumpSerialModel: String,
-    suppliesAquired: Date,
-    siteChanged: Date,
-    comments: String
-  }
+    _id: Schema.Types.ObjectId,
+    pump: {
+        brand: String,
+        model: String,
+        serialNumber: String,
+        pumpSerialModel: String,
+        suppliesAquired: [{
+            date: Date,
+            boxLabel: String
+        }]
+    },
+    deviceChanges: [],
+    deviceFailures: [],
+    user_id: {type: Schema.Types.ObjectId, ref: 'user'}
 });
 
 const Pump = mongoose.model('pump', pumpSchema);
