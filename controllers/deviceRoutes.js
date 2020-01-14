@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const verify = require('./verifyToken');
 
 const Device = require('./../models/device');
 // const User = require('./../models/user');
@@ -16,7 +17,8 @@ router.get("/", (req, res) => {
 
 // add new device
 
-router.post("/create", (req, res) => {
+router.post("/create", verify, (req, res) => {
+
 const sub = {
   user_id: currentUser,
   deviceName: req.body.deviceName,
@@ -36,7 +38,7 @@ const sub = {
 
 // add supplies aquired
 
-router.post("/aquire", (req, res) => {
+router.post("/aquire", verify, (req, res) => {
   console.log(req.body);
   const sub = {
     user_id: currentUser,
@@ -57,7 +59,7 @@ router.post("/aquire", (req, res) => {
 
 // device change
 
-router.post("/change", (req, res) => {
+router.post("/change", verify, (req, res) => {
   const sub = {
     user_id: currentUser,
     device_id: req.body.device,
@@ -75,7 +77,7 @@ router.post("/change", (req, res) => {
 
 // add new failure
 
-router.post("/failure", (req, res) => {
+router.post("/failure", verify, (req, res) => {
   const sub = {
     user_id: currentUser,
     device_id: req.body.device,

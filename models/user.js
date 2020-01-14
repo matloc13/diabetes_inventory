@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+require('mongoose-type-email');
+
 
 const userSchema = new Schema ({
+    email: String,
     firstName: String,
     lastName: String,
     age: {type: Number, min: 0 },
-    birthDate: Date,
+    birthDate: {type: Date, default: Date.now()},
+    password: String,
     isAuthenticated: Boolean,
     notes: [{
         date: Date,
