@@ -8,8 +8,8 @@ const SuppliesAquired = require('./../models/suppliesAquired');
 const DeviceChange = require('./../models/deviceChange');
 const DeviceFailure = require('./../models/deviceFailure');
 
-//replace with authenticated user
-const currentUser = "5e1a8912b87b60661dae6321";
+// //replace with authenticated user
+// const currentUser = "5e1a8912b87b60661dae6321";
 
 router.get("/", (req, res) => {
   res.send(req.params)
@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 router.post("/create", verify, (req, res) => {
 
 const sub = {
-  user_id: currentUser,
+  user_id: req.body.user,
   deviceName: req.body.deviceName,
   brand: req.body.brand,
   model: req.body.model,

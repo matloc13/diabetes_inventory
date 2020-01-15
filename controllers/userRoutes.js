@@ -7,7 +7,7 @@ const verify = require('./verifyToken');
 // const {createValidation }= require('./../validation')
 
 router.get("/", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   
   User.find({}, (err, index) => {
     if (err) {
@@ -62,7 +62,7 @@ router.post("/create", async (req, res) => {
      return res.status(400).send('Email or Password is incorrecy');
    }
    const token = jwt.sign({ _id: user._id }, process.env.SECRET, {expiresIn: '1h' });
-   res.header('auth-token', token).status(200).json(user);
+   res.header('auth-token', token).status(200).json({user, token});
   })
 
 module.exports = router;
