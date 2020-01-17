@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const userRoutes = require('./controllers/userRoutes');
 const deviceRoutes = require('./controllers/deviceRoutes');
@@ -8,6 +9,7 @@ const deviceRoutes = require('./controllers/deviceRoutes');
 const port = process.env.PORT || 3000;
 require('dotenv').config();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 app.use(cors({
   origin: "http://localhost:3001",
@@ -32,12 +34,14 @@ mongoose.connect(MONGODB_URI, {
 app.use(express.urlencoded({
   extended: false
 }));
+
 app.use(express.json());
+app.use(cookieParser());
 app.use('/user', userRoutes);
 app.use('/device', deviceRoutes);
 
 app.get("/", (req, res) => {
-  res.send('hello')
+  res.send('hello');
 
 });
 

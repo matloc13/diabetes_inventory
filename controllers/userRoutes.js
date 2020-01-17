@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/user');
-const verify = require('./verifyToken');
+// const verify = require('./verifyToken');
 // const {createValidation }= require('./../validation')
 
 router.get("/", (req, res) => {
@@ -56,13 +56,22 @@ router.post("/create", async (req, res) => {
     if (!user) {
       return res.status(400).send('Email or Password is incorrect')
     }
-
+    console.log(user);
+    
    const validPass = await bcrypt.compare(req.body.password, user.password);
    if (!validPass) {
      return res.status(400).send('Email or Password is incorrecy');
    }
-   const token = jwt.sign({ _id: user._id }, process.env.SECRET, {expiresIn: '1h' });
-   res.header('auth-token', token).status(200).json({user, token});
+  //  const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
+
+  jwt.sign({id: user._id}, process.env.SECRET, ((err, token) => {
+    if (err) {
+      console.error(err);
+    }
+
+    res.status(200).cookie('auth-token', token).json({user, token})
+
+  }))
   })
 
 module.exports = router;
