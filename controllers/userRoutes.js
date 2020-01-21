@@ -2,18 +2,21 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 const User = require('./../models/user');
 // const verify = require('./verifyToken');
 // const {createValidation }= require('./../validation')
 
 router.get("/", (req, res) => {
   // console.log(req.body);
+  console.log(req.cookies['x-access-token']);
   
   User.find({}, (err, index) => {
     if (err) {
       console.error(err);
       } else {
-      res.send(index)
+      res.send(index).status(200);
     }
   })
 });
@@ -69,9 +72,10 @@ router.post("/create", async (req, res) => {
       console.error(err);
     }
 
-    res.status(200).cookie('auth-token', token).json({user, token})
+    // res.status(200).cookie('x-access-token', token, { sameSite: "Lax", secure: false, httpOnly: true }).json({user, token});
+
+    res.status(200).header('x-access-token', token).json({user, token}).send(token);
 
   }))
   })
-
 module.exports = router;

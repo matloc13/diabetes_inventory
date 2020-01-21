@@ -1,44 +1,67 @@
 const express = require("express");
 const router = express.Router();
 const verify = require('./verifyToken');
-
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 const Device = require('./../models/device');
-// const User = require('./../models/user');
 const SuppliesAquired = require('./../models/suppliesAquired');
 const DeviceChange = require('./../models/deviceChange');
 const DeviceFailure = require('./../models/deviceFailure');
 
-// //replace with authenticated user
-// const currentUser = "5e1a8912b87b60661dae6321";
+router.get("/:user_id", verify, (req, res) => {
 
-router.get("/", (req, res) => {
-  res.send(req.params)
+  Device.find({},(err, index) => {
+    if (err) {
+      res.sendStatus(404)
+    } else {
+      res.status(200).json(index);
+    }
+  })
+  res.send(req.body)
+});
+
+router.get("/:deviceId/aquire", (req, res) => {
+  
+});
+
+router.get("/:deviceId/change", (req, res) => {
+  
+});
+
+router.get("/:deviceId/failure", (req, res) => {
+  
 });
 
 // add new device
 
-router.post("/create", verify, (req, res) => {
+router.post("/:user_id/create", verify, (req, res) => {
 
-const sub = {
-  user_id: req.body.user,
-  deviceName: req.body.deviceName,
-  brand: req.body.brand,
-  model: req.body.model,
-  serialNumber: req.body.serialNumber,
-  userSpec: req.body.userSpec
-}
-  Device.create(sub, (err, addDevice) => {
-    if (err) {
-      res.status(400)
-    } else {
-      res.status(200).json(addDevice)
-    }
-  })
+  const sub = {
+    user_id: req.params.user_id,
+    deviceName: req.body.deviceName,
+    brand: req.body.brand,
+    model: req.body.model,
+    serialNumber: req.body.serialNumber,
+    userSpec: req.body.userSpec
+  }
+
+  if (req.body.user == sub.user_id) {
+    Device.create(sub, (err, addDevice) => {
+      if (err) {
+        res.status(400)
+      } else {
+        res.status(200).json(addDevice)
+      }
+    })
+  } else {
+    res.status(404);
+  }
+
 });
 
 // add supplies aquired
 
-router.post("/aquire", verify, (req, res) => {
+router.post("/:deviceId/:userId/aquire", csrfProtection, verify, (req, res) => {
   console.log(req.body);
   const sub = {
     user_id: currentUser,
@@ -59,7 +82,7 @@ router.post("/aquire", verify, (req, res) => {
 
 // device change
 
-router.post("/change", verify, (req, res) => {
+router.post("/:deviceId/:userId/change", csrfProtection, verify, (req, res) => {
   const sub = {
     user_id: currentUser,
     device_id: req.body.device,
@@ -77,7 +100,7 @@ router.post("/change", verify, (req, res) => {
 
 // add new failure
 
-router.post("/failure", verify, (req, res) => {
+router.post("/:deviceId/:userId/failure", csrfProtection,verify, (req, res) => {
   const sub = {
     user_id: currentUser,
     device_id: req.body.device,

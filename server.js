@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-
 const userRoutes = require('./controllers/userRoutes');
 const deviceRoutes = require('./controllers/deviceRoutes');
 
@@ -10,13 +9,8 @@ const port = process.env.PORT || 3000;
 require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
-app.use(cors({
-  origin: "http://localhost:3001",
-  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-  credentials: true,
-  preflightContinue: true
-}))
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
 // MONGO 
 
@@ -31,17 +25,33 @@ mongoose.connect(MONGODB_URI, {
   useFindAndModify: false,
   useUnifiedTopology: true
 });
+
+// Middleware
+
 app.use(express.urlencoded({
   extended: false
 }));
 
 app.use(express.json());
-app.use(cookieParser());
+
+app.use(cookieParser(process.env.SECRET));
+
+app.use(cors({
+  origin: "http://localhost:3001",
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+  allowedHeaders: ['Content-Type', 'credentials', 'Accept', 'authorization' ],
+  credentials: true,
+  preflightContinue: true,
+  SupportsCredentials: true
+}));
+
 app.use('/user', userRoutes);
 app.use('/device', deviceRoutes);
 
-app.get("/", (req, res) => {
-  res.send('hello');
+// Routes
+
+app.get("/", csrfProtection, (req, res) => {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
 
 });
 
