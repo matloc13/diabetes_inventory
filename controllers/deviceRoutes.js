@@ -10,14 +10,13 @@ const DeviceFailure = require('./../models/deviceFailure');
 
 router.get("/:user_id", verify, (req, res) => {
 
-  Device.find({},(err, index) => {
+  Device.find({ user_id: req.params.user_id },(err, index) => {
     if (err) {
       res.sendStatus(404)
     } else {
       res.status(200).json(index);
     }
   })
-  res.send(req.body)
 });
 
 router.get("/:deviceId/aquire", (req, res) => {

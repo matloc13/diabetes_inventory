@@ -74,7 +74,7 @@ router.post("/create", async (req, res) => {
 
     // res.status(200).cookie('x-access-token', token, { sameSite: "Lax", secure: false, httpOnly: true }).json({user, token});
 
-    res.status(200).header('x-access-token', token).json({user, token}).send(token);
+    res.status(200).header('x-access-token', token).json({user, token});
 
   }))
   })
