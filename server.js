@@ -50,10 +50,10 @@ app.use('/device', deviceRoutes);
 
 // Routes
 
-app.get("/", csrfProtection, (req, res) => {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
+// app.get("/", csrfProtection, (req, res) => {
+//   res.cookie('XSRF-TOKEN', req.csrfToken());
 
-});
+// });
 
 app.listen(port, () => (
   console.log(`server listening on port: ${port} 🔥`)));

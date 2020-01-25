@@ -4,11 +4,10 @@ const Schema = mongoose.Schema;
 const suppliesAquiredSchema = new Schema({
   date: Date,
   boxLabel: String,
-  device_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'device'
-  },
-  note: String
+  item: String,
+  note: String,
+  device_id: { type: Schema.Types.ObjectId, ref: 'device' },
+  user_id: { type: Schema.Types.ObjectId, ref: 'user'}
 })
 
 const SuppliesAquired = mongoose.model('suppliesAquired', suppliesAquiredSchema);
