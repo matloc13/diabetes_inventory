@@ -7,6 +7,7 @@ const userSchema = new Schema ({
     email: String,
     firstName: String,
     lastName: String,
+    userName: String,
     age: {type: Number, min: 0 },
     birthDate: {type: Date, default: Date.now()},
     password: String,

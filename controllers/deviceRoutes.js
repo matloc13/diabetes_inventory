@@ -19,7 +19,8 @@ router.get("/:user_id", verify, (req, res) => {
 });
 
 router.get("/:deviceId/aquire", (req, res) => {
-  DeviceFailure.find({device_id: req.params.device_id}, (err, aqs) => {
+
+  SuppliesAquired.find({device_id: req.params.deviceId}, (err, aqs) => {
     if (err) {
       res.sendStatus(404);
     } else {
@@ -30,9 +31,25 @@ router.get("/:deviceId/aquire", (req, res) => {
 
 router.get("/:deviceId/change", (req, res) => {
 
+  DeviceChange.find({device_id: req.params.deviceId}, (err, changes) => {
+    if (err) {
+      res.sendStatus(400);
+    } else {
+      res.status(200).json(changes);
+    }
+  })
+
 });
 
 router.get("/:deviceId/failure", (req, res) => {
+
+  DeviceFailure.find({device_id: req.params.deviceId}, (err, failures) => {
+    if (err) {
+      res.sendStatus(400);
+    } else {
+      res.status(200).json(failures);
+    }
+  })
   
 });
 
