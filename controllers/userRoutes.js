@@ -79,4 +79,7 @@ router.post("/create", async (req, res) => {
 
   }))
   })
+
+  router.put("/:user_id/update")
+
 module.exports = router;
