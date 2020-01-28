@@ -8,6 +8,7 @@ const SuppliesAquired = require('./../models/suppliesAquired');
 const DeviceChange = require('./../models/deviceChange');
 const DeviceFailure = require('./../models/deviceFailure');
 
+// get all user devices
 router.get("/:user_id", verify, (req, res) => {
   Device.find({ user_id: req.params.user_id },(err, index) => {
     if (err) {
@@ -18,9 +19,19 @@ router.get("/:user_id", verify, (req, res) => {
   })
 });
 
-router.get("/:deviceId/aquire", (req, res) => {
+// get single device
+router.get('/:device_id/get', verify, (req, res) => {
+  Device.findOne( { _id: req.params.device_id },  (err, showDev) => {
+    if (err) {
+      res.status(401);
+    } else {
+      res.status(200).json(showDev);
+    }
+  })
+})
 
-  SuppliesAquired.find({device_id: req.params.deviceId}, (err, aqs) => {
+router.get("/:device_id/aquire", (req, res) => {
+  SuppliesAquired.find({device_id: req.params.device_id}, (err, aqs) => {
     if (err) {
       res.sendStatus(404);
     } else {
@@ -29,9 +40,9 @@ router.get("/:deviceId/aquire", (req, res) => {
   })
 });
 
-router.get("/:deviceId/change", (req, res) => {
+router.get("/:device_id/change", (req, res) => {
 
-  DeviceChange.find({device_id: req.params.deviceId}, (err, changes) => {
+  DeviceChange.find({device_id: req.params.device_id}, (err, changes) => {
     if (err) {
       res.sendStatus(400);
     } else {
@@ -41,9 +52,8 @@ router.get("/:deviceId/change", (req, res) => {
 
 });
 
-router.get("/:deviceId/failure", (req, res) => {
-
-  DeviceFailure.find({device_id: req.params.deviceId}, (err, failures) => {
+router.get("/:device_id/failure", (req, res) => {
+  DeviceFailure.find({device_id: req.params.device_id}, (err, failures) => {
     if (err) {
       res.sendStatus(400);
     } else {
@@ -56,7 +66,6 @@ router.get("/:deviceId/failure", (req, res) => {
 // add new device
 
 router.post("/:user_id/create", verify, (req, res) => {
-
   const sub = {
     user_id: req.params.user_id,
     deviceName: req.body.deviceName,
@@ -104,8 +113,6 @@ router.post("/:deviceId/add/aquire", verify, (req, res) => {
 // device change
 
 router.post("/:deviceId/add/change", verify,(req, res) => {
-  console.log('at change');
-  
   const sub = {
     user_id: req.body.user_id,
     device_id: req.params.deviceId,

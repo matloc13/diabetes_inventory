@@ -4,13 +4,13 @@ require('mongoose-type-email');
 
 
 const userSchema = new Schema ({
-    email: String,
+    email: { type: String, required: true, unique: true},
     firstName: String,
     lastName: String,
-    userName: String,
+    userName: { type: String, required: true },
     age: {type: Number, min: 0 },
-    birthDate: {type: Date, default: Date.now()},
-    password: String,
+    birthDate: { type: Date },
+    password: { type: String, required: true },
     isAuthenticated: Boolean,
     notes: [{
         date: Date,

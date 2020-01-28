@@ -68,7 +68,7 @@ router.post("/create", async (req, res) => {
    }
   //  const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
 
-  jwt.sign({id: user._id}, process.env.SECRET, ((err, token) => {
+  jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '1h' }, ((err, token) => {
     if (err) {
       console.error(err);
     }
@@ -80,6 +80,15 @@ router.post("/create", async (req, res) => {
   }))
   })
 
-  router.put("/:user_id/update")
+  router.put("/:user_id/update", (req, res) => {
+    
+    User.findOneAndUpdate(req.params.user_id, req.body, (err, upUser) => {
+      if (err) {
+        res.status(400);
+      } else {
+        res.status(200).json(upUser);
+      }
+    })
+  })
 
 module.exports = router;
