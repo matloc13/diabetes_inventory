@@ -60,25 +60,28 @@ router.post("/create", async (req, res) => {
     if (!user) {
       return res.status(400).send('Email or Password is incorrect')
     }
-    console.log(user);
+    // console.log(user);
     
    const validPass = await bcrypt.compare(req.body.password, user.password);
    if (!validPass) {
-     return res.status(400).send('Email or Password is incorrecy');
+     return res.status(400).send('Email or Password is incorrect');
    }
-  //  const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
+   const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
 
-  jwt.sign({id: user._id}, process.env.SECRET, ((err, token) => {
-    if (err) {
-      console.error(err);
-    }
+   await new Promise(resolve => {
+     if (token) {
+       return resolve(   
+         res.status(200).header('X-Access-Token', token).json({user, token})
+         )
+     }
+   })
+    // if (token) {
+    //   return    res.status(200).header('X-Access-Token', token).json({user, token});
+    // }
 
     // res.status(200).cookie('x-access-token', token, { sameSite: "Lax", secure: false, httpOnly: true }).json({user, token});
 
-    res.status(200).header('x-access-token', token).json({user, token});
-
-  }))
-  })
+  });
 
   router.put("/:user_id/update", (req, res) => {
     
@@ -89,6 +92,6 @@ router.post("/create", async (req, res) => {
         res.status(200).json(upUser);
       }
     })
-  })
+  });
 
 module.exports = router;
