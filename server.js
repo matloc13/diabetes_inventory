@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET));
 
 app.use(cors({
-  origin: "http://localhost:3001, https://diabetes-supplies-portal.herokuapp.com",
+  origin: ["https://diabetes-supplies-portal.herokuapp.com", "http://localhost:3001"] ,
   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
   allowedHeaders: ['Content-Type', 'credentials', 'Accept', 'authorization' ],
   credentials: true,
