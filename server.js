@@ -36,17 +36,17 @@ app.use(express.json());
 
 app.use(cookieParser(process.env.SECRET));
 
-app.use('/user', userRoutes);
+
 
 app.use(cors({
   origin: ["https://diabetes-supplies-portal.herokuapp.com", "http://localhost:3001"] ,
   methods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
   allowedHeaders: [ 'Content-Type', 'Accept', 'authorization' ],
   credentials: true,
-  preflightContinue: true,
-  SupportsCredentials: true
+  preflightContinue: true
 }));
 
+app.use('/user', userRoutes);
 
 app.use('/device', deviceRoutes);
 
