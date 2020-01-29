@@ -2,7 +2,7 @@
   "name": "diabetes_supplies_inventory",
   "version": "1.0.0",
   "engines": {
-    "node": "v12 .12 .0 "
+    "node": "v12.12.0 "
   },
   "description": "diabetes supplies inventory and log",
   "main": "server.js",
