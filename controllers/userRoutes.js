@@ -68,7 +68,7 @@ router.post("/create", async (req, res) => {
    }
   //  const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
 
-  jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '1h' }, ((err, token) => {
+  jwt.sign({id: user._id}, process.env.SECRET, ((err, token) => {
     if (err) {
       console.error(err);
     }
