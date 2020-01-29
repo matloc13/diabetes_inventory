@@ -68,20 +68,15 @@ router.post("/create", async (req, res) => {
    }
    const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
 
-   await new Promise(resolve => {
-     if (token) {
-       return resolve(   
-         res.status(200).header('X-Access-Token', token).json({user, token})
-         )
-     }
-   })
-    // if (token) {
-    //   return    res.status(200).header('X-Access-Token', token).json({user, token});
-    // }
 
+     if (token) { 
+         res.status(200).header('X-Access-Token', token).json({user, token})
+     }
+   });
+  
     // res.status(200).cookie('x-access-token', token, { sameSite: "Lax", secure: false, httpOnly: true }).json({user, token});
 
-  });
+
 
   router.put("/:user_id/update", (req, res) => {
     
