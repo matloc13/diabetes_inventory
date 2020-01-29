@@ -50,11 +50,9 @@ app.use('/user', userRoutes);
 
 app.use('/device', deviceRoutes);
 
-// Routes
 
 // app.get("/", csrfProtection, (req, res) => {
 //   res.cookie('XSRF-TOKEN', req.csrfToken());
-
 // });
 
 

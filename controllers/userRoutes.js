@@ -46,7 +46,7 @@ router.post("/create", async (req, res) => {
   }
   // console.log(sub);
   
-  await User.create(sub, (err, addUser) => {
+   User.create(sub, (err, addUser) => {
     if (err) {
       res.status(503);    
     } else {
