@@ -36,16 +36,18 @@ app.use(express.json());
 
 app.use(cookieParser(process.env.SECRET));
 
+app.use('/user', userRoutes);
+
 app.use(cors({
   origin: ["https://diabetes-supplies-portal.herokuapp.com", "http://localhost:3001"] ,
-  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-  allowedHeaders: ['Content-Type', 'credentials', 'Accept', 'authorization' ],
+  methods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
+  allowedHeaders: [ 'Content-Type', 'Accept', 'authorization' ],
   credentials: true,
   preflightContinue: true,
   SupportsCredentials: true
 }));
 
-app.use('/user', userRoutes);
+
 app.use('/device', deviceRoutes);
 
 // Routes
@@ -54,6 +56,7 @@ app.use('/device', deviceRoutes);
 //   res.cookie('XSRF-TOKEN', req.csrfToken());
 
 // });
+
 
 app.listen(port, () => (
   console.log(`server listening on port: ${port} 🔥`)));
