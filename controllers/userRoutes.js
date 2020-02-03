@@ -55,20 +55,18 @@ router.post("/create", async (req, res) => {
   })
 });
 
-  router.post("/login", (req, res) => {
-    const user = User.findOne({email: req.body.email});
+  router.post("/login", async (req, res) => {
+    const user = await User.findOne({email: req.body.email});
     if (!user) {
       return res.status(400).send('Email or Password is incorrect')
     }
     // console.log(user);
     
-   const validPass = bcrypt.compare(req.body.password, user.password);
+   const validPass = await bcrypt.compare(req.body.password, user.password);
    if (!validPass) {
      return res.status(400).send('Email or Password is incorrect');
    }
    const token = jwt.sign({ user }, process.env.SECRET, {expiresIn: '1h' });
-
-
 
          res.status(200).header('X-Access-Token', token).json({user, token})
 
