@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const verify = require('./verifyToken');
-const csrf = require('csurf');
-const csrfProtection = csrf({ cookie: true });
+// const csrf = require('csurf');
+// const csrfProtection = csrf({ cookie: true });
 const Device = require('./../models/device');
 const SuppliesAquired = require('./../models/suppliesAquired');
 const DeviceChange = require('./../models/deviceChange');

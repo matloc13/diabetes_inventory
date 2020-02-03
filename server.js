@@ -4,13 +4,14 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const userRoutes = require('./controllers/userRoutes');
 const deviceRoutes = require('./controllers/deviceRoutes');
+const medicineRoutes = require('./controllers/medicineRoutes');
 
 const port = process.env.PORT || 3000;
 require('dotenv').config();
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
-const csrfProtection = csrf({ cookie: true });
+// const cookieParser = require('cookie-parser');
+// const csrf = require('csurf');
+// const csrfProtection = csrf({ cookie: true });
 
 // MONGO 
 
@@ -31,12 +32,8 @@ mongoose.connect(MONGODB_URI, {
 app.use(express.urlencoded({
   extended: false
 }));
-
 app.use(express.json());
-
-app.use(cookieParser(process.env.SECRET));
-
-
+// app.use(cookieParser(process.env.SECRET));
 
 app.use(cors({
   origin: ["https://diabetes-supplies-portal.herokuapp.com", "http://localhost:3001"] ,
@@ -47,8 +44,8 @@ app.use(cors({
 }));
 
 app.use('/user', userRoutes);
-
 app.use('/device', deviceRoutes);
+app.use('/medicine', medicineRoutes);
 
 
 // app.get("/", csrfProtection, (req, res) => {
