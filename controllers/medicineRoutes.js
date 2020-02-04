@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Medicine = require('./../models/medicine').default;
+const Medicine = require('./../models/medicine');
 const verify = require('./verifyToken');
 
 router.get("/:user_id", verify, (req, res) => {
@@ -24,19 +24,21 @@ router.get("/medOne/:med_id", verify, (req, res) => {
 });
 
 router.post("/addMed", verify, (req, res) => {
+    console.log(req.body);
+    
     const sub = {
-        user_id: req.body.user_id,
         name: req.body.name,
         description: req.body.description,
         date: req.body.date,
         prescriptionNumber: req.body.prescriptionNumber,
         doctor: req.body.doctor,
         pharmacy: req.body.pharmacy,
-        size: req.body.size
+        size: req.body.size,
+        user_id: req.body.user_id
     }
   Medicine.create(sub, (err, newMed) => {
       if (err) {
-          res.sendStatus(408);
+          res.status(408);
       } else {
           res.status(201).json(newMed);
       }

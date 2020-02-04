@@ -11,7 +11,7 @@ const medicineSchema = new Schema({
     size: { type: String },
     user_id: {type: Schema.Types.ObjectId, ref: 'user'},
     malfunction: { type: String },
-    finished: { type: Date, default: false }
+    finished: { type: Boolean, default: false }
 })
 
 const Medicine = mongoose.model('medicine', medicineSchema);
