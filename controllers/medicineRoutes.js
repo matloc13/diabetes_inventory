@@ -34,6 +34,7 @@ router.post("/addMed", verify, (req, res) => {
         doctor: req.body.doctor,
         pharmacy: req.body.pharmacy,
         size: req.body.size,
+        refillLength: req.body.refillLength,
         user_id: req.body.user_id
     }
   Medicine.create(sub, (err, newMed) => {

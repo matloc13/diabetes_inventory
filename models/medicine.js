@@ -9,6 +9,7 @@ const medicineSchema = new Schema({
     doctor: { type: String },
     pharmacy: { type: String },
     size: { type: String },
+    refillLength: { type: Number},
     user_id: {type: Schema.Types.ObjectId, ref: 'user'},
     malfunction: { type: String },
     finished: { type: Boolean, default: false }
