@@ -12,7 +12,8 @@ const medicineSchema = new Schema({
     refillLength: { type: Number},
     user_id: {type: Schema.Types.ObjectId, ref: 'user'},
     malfunction: { type: String },
-    finished: { type: Boolean, default: false }
+    finished: { type: Boolean, default: false },
+    refill: [{type: Schema.Types.ObjectId, ref: 'medRefill'}],
 })
 
 const Medicine = mongoose.model('medicine', medicineSchema);

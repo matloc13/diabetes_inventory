@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Medicine = require('./../models/medicine');
+const MedRefill = require('./../models/medicineRefill');
 const verify = require('./verifyToken');
 
 router.get("/:user_id", verify, (req, res) => {
@@ -19,6 +20,16 @@ router.get("/medOne/:med_id", verify, (req, res) => {
           res.sendStatus(404);
       } else {
           res.status(200).json(medOne);
+      }
+  })
+});
+
+router.get("/getRefill/:med_id",verify,  (req, res) => {
+  MedRefill.find({med_id: req.params.med_id}, (err, getRef) => {
+      if (err) {
+          res.status(408);
+      } else {
+          res.status(200).json(getRef);
       }
   })
 });
@@ -44,6 +55,26 @@ router.post("/addMed", verify, (req, res) => {
           res.status(201).json(newMed);
       }
   })
+});
+
+router.post("/addRefill/:med_id", verify, (req, res) => {
+    try {
+        const sub = {
+            med_id: req.params.med_id,
+            date: req.body.date,
+            details: req.body.details
+        }
+   
+        MedRefill.create(sub, (err, newRefill) => {
+            if (err) {
+                res.status(408);
+            } else {
+                res.status(201).json(newRefill);
+            }
+        })
+    } catch (error) {
+        res.status(408); 
+    }
 });
 
 router.put("/malfuncion", verify, (req, res) => {
