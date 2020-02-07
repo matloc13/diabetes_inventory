@@ -68,7 +68,7 @@ router.post("/addRefill/:med_id", verify, (req, res) => {
             if (err) {
                 res.status(408);
             } else {
-                res.status(201).json(newRefill);
+                res.status(200).json(newRefill);
             }
         })
 });
