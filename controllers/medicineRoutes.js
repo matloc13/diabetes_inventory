@@ -35,8 +35,7 @@ router.get("/getRefill/:med_id",verify,  (req, res) => {
 });
 
 router.post("/addMed", verify, (req, res) => {
-    console.log(req.body);
-    
+    // console.log(req.body);
     const sub = {
         name: req.body.name,
         description: req.body.description,
@@ -50,15 +49,15 @@ router.post("/addMed", verify, (req, res) => {
     }
   Medicine.create(sub, (err, newMed) => {
       if (err) {
-          res.status(408);
+          res.status(404);
       } else {
-          res.status(201).json(newMed);
+          res.status(200).json(newMed);
       }
   })
 });
 
 router.post("/addRefill/:med_id", verify, (req, res) => {
-    try {
+
         const sub = {
             med_id: req.params.med_id,
             date: req.body.date,
@@ -72,9 +71,6 @@ router.post("/addRefill/:med_id", verify, (req, res) => {
                 res.status(201).json(newRefill);
             }
         })
-    } catch (error) {
-        res.status(408); 
-    }
 });
 
 router.put("/malfuncion", verify, (req, res) => {
