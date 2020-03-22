@@ -149,5 +149,22 @@ router.post("/:deviceId/add/failure", verify, (req, res) => {
   })
 });
 
+router.put("/:deviceId/changeUp/change", (req, res) => {
+  const sub = {
+    user_id: req.body.user_id,
+    device_id: req.params.deviceId,
+    date: req.body.date,
+    item: req.body.item,
+    note: req.body.note
+  }
+  DeviceChange.findByIdAndUpdate(sub, (err, update) => {
+    if (err) {
+      res.status(400);
+    } else {
+      res.status(200).json(update);
+    }
+  })
+});
+
 module.exports = router;
 
