@@ -72,7 +72,8 @@ router.post("/:user_id/create", verify, (req, res) => {
     brand: req.body.brand,
     model: req.body.model,
     serialNumber: req.body.serialNumber,
-    userSpec: req.body.userSpec
+    userSpec: req.body.userSpec,
+    transmitter_id: req.body.transmitter_id
   }
 
   if (req.body.user == sub.user_id) {
@@ -165,6 +166,24 @@ router.put("/:deviceId/changeUp/change", (req, res) => {
     }
   })
 });
+
+router.put("/:deviceId/transmitter_update", (req, res) => {
+  const sub = {
+    user_id: req.body.user_id,
+    device_id: req.params.deviceId,
+    date: req.body.date,
+    transmitter_id: req.body.transmitter_id
+  }
+  Device.findByIdAndUpdate(sub.device_id, {
+    $set: { transmitter_id: transmitter_id }
+  }, (err, update) => {
+    if (err) {
+      res.status(400);
+    } else {
+      res.status(200).json(update);
+    }
+  })
+})
 
 module.exports = router;
 
