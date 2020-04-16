@@ -8,6 +8,7 @@ const deviceSchema = new Schema ({
     brand: String,
     model: String,
     serialNumber: String,
+    transmitter_id:[Object],
     userSpec: Schema.Types.Mixed,
     suppliesAquired: [{type: Schema.Types.ObjectId, ref: 'suppliesAquired'}],
     deviceChanges: [{type: Schema.Types.ObjectId, ref: 'deviceChange'}],

@@ -175,7 +175,7 @@ router.put("/:deviceId/transmitter_update", (req, res) => {
     transmitter_id: req.body.transmitter_id
   }
   Device.findByIdAndUpdate(sub.device_id, {
-    $set: { transmitter_id: transmitter_id }
+    $push: { transmitter_id: sub.transmitter_id, date_initialized: sub.date }
   }, (err, update) => {
     if (err) {
       res.status(400);
