@@ -130,6 +130,7 @@ router.post('/:deviceId/add/change', verify, (req, res) => {
         date: req.body.date,
         item: req.body.item,
         note: req.body.note,
+        sensorId: req.body.sensorId,
     };
 
     DeviceChange.create(sub, (err, newChange) => {
