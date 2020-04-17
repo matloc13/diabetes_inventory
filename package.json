@@ -23,5 +23,8 @@
     "mongoose": "^5.8.6",
     "mongoose-type-email": "^1.0.12",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.4"
   }
 }

@@ -3,8 +3,11 @@ const Schema = mongoose.Schema;
 
 const cgmSchema = new Schema({
     device_id: { type: Schema.Types.ObjectId, ref: 'device'},
-    transmitterId: {type: String, required: true },
-    date_upated: {type: Date, required: true}
+    brand: String,
+    model: String,
+    serialNumber: String,
+    transmitter_id:[Object],
+    userSpec: Schema.Types.Mixed,
 })
 
 const cgm = mongoose.model('cgm', cgmSchema);
