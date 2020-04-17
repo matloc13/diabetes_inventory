@@ -70,17 +70,31 @@ router.post('/:user_id/create', verify, (req, res) => {
         model: req.body.model,
         serialNumber: req.body.serialNumber,
         userSpec: req.body.userSpec,
-        transmitter_id: req.body.transmitter_id,
+        // transmitter_id: req.body.transmitter_id,
+        // date: req.body.date,
     };
 
     if (req.body.user == sub.user_id) {
-        Device.create(sub, (err, addDevice) => {
-            if (err) {
-                res.status(400);
-            } else {
-                res.status(200).json(addDevice);
+        Device.create(
+            sub,
+            {
+                $push: {
+                    transmitter_id: [
+                        {
+                            transmitter_id: req.body.transmitter_id,
+                            date_initialized: req.body.date,
+                        },
+                    ],
+                },
+            },
+            (err, addDevice) => {
+                if (err) {
+                    res.status(400);
+                } else {
+                    res.status(200).json(addDevice);
+                }
             }
-        });
+        );
     } else {
         res.status(404);
     }
