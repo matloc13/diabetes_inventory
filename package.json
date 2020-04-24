@@ -1,30 +1,36 @@
 {
-  "name": "diabetes_supplies_inventory",
-  "version": "1.0.0",
-  "engines": {
-    "node": "v12.12.0 "
-  },
-  "description": "diabetes supplies inventory and log",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "matloc (matloc.dev/)",
-  "license": "ISC",
-  "dependencies": {
-    "@hapi/joi": "^17.0.2",
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.4",
-    "cors": "^2.8.5",
-    "csurf": "^1.11.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.6",
-    "mongoose-type-email": "^1.0.12",
-    "nodemon": "^2.0.2"
-  },
-  "devDependencies": {
-    "prettier": "^2.0.4"
-  }
+    "name": "diabetes_supplies_inventory",
+    "version": "1.0.0",
+    "engines": {
+        "node": "v12.12.0 "
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/matloc13/diabetes_inventory.git"
+    },
+    "description": "diabetes supplies inventory and log",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "matloc (matloc.dev/)",
+    "license": "ISC",
+    "dependencies": {
+        "@hapi/joi": "^17.0.2",
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.4",
+        "cors": "^2.8.5",
+        "csurf": "^1.11.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-csp-header": "^3.0.0",
+        "fsevents": "^2.1.3",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.8.6",
+        "mongoose-type-email": "^1.0.12",
+        "nodemon": "^2.0.3"
+    },
+    "devDependencies": {
+        "prettier": "^2.0.4"
+    }
 }
