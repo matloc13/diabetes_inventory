@@ -9,7 +9,7 @@ const medicineRoutes = require('./controllers/medicineRoutes');
 const port = process.env.PORT || 3000;
 require('dotenv').config();
 const cors = require('cors');
-const { expressCspHeader, NONCE } = require('express-csp-header');
+// const { expressCspHeader, NONCE } = require('express-csp-header');
 
 // const cookieParser = require('cookie-parser');
 // const csrf = require('csurf');
@@ -39,13 +39,13 @@ app.use(
 app.use(express.json());
 // app.use(cookieParser(process.env.SECRET));
 
-app.use(
-    expressCspHeader({
-        directives: {
-            'script-src': [NONCE],
-        },
-    })
-);
+// app.use(
+//     expressCspHeader({
+//         directives: {
+//             'script-src': [NONCE],
+//         },
+//     })
+// );
 
 app.use(
     cors({

@@ -56,6 +56,7 @@ router.post('/create', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
+    console.log('user', user);
     if (!user) {
         return res.status(400).send('Email or Password is incorrect');
     }
