@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
     if (!user) {
         return res.status(400).send('Email or Password is incorrect');
     }
-    // console.log(user);
+    console.log(user);
 
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) {
