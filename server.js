@@ -18,6 +18,7 @@ const cors = require('cors');
 // MONGO
 
 const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGODB_URI_LOCAL;
+
 mongoose.connection.once('open', () => {
     console.log('mongo - connected');
 });
@@ -46,6 +47,7 @@ app.use(express.json());
 //         },
 //     })
 // );
+
 
 app.use(
     cors({
