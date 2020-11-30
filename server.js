@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 require('dotenv').config();
 const cors = require('cors');
 // const { expressCspHeader, NONCE } = require('express-csp-header');
-// testing
 // const cookieParser = require('cookie-parser');
 // const csrf = require('csurf');
 // const csrfProtection = csrf({ cookie: true });
