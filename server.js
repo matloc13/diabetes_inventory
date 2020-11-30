@@ -50,7 +50,7 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: ['*','https://diabetes-supplies-portal.herokuapp.com', 'http://localhost:3001','0.0.0.0/0'],
+        origin: ['*','https://diabetes-supplies-portal.herokuapp.com', 'http://localhost:3001',],
         methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Accept', 'authorization'],
         credentials: true,
